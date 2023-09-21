@@ -8,9 +8,7 @@ datasets = []
 DS_OPTION = 1 # select witch table provided to use
 
 # prints formatted matrix
-def print_m(matrix):
-    for line in matrix:
-        print(line)
+print_m = lambda matrix: [print(line) for line in matrix]
 
 with open('data.txt', 'r') as f:
     line = f.readline()
@@ -37,7 +35,7 @@ with open('data.txt', 'r') as f:
             
     print_m(datasets[DS_OPTION])
     
-# what datasets[0] should look like for base experiment setup
+# what datasets[0] should look like for base experiment setup without axis of symmetry
 # x2 = [5.3, 5.3, 5.5, 5.5, 5.6, 5.6, 5.6]
 # x1 = [3.0, 3.4, 3.5, 3.5, 3.6, 3.5, 3.6]
 # x3 = [7.4, 7.5, 7.5, 7.5, 7.5, 7.5, 7.5]
@@ -49,7 +47,7 @@ with open('data.txt', 'r') as f:
 
 X = datasets[DS_OPTION]
 
-Y = [[2*i]*7 for i in range(7)]
+Y = [[2*i]*7 for i in range(15)]
 # This line initializes the following matrix for range(7)
 # Y = [[ 0.,  0.,  0.,  0.,  0.,  0.,  0.],
 #      [ 2.,  2.,  2.,  2.,  2.,  2.,  2.,],
@@ -58,6 +56,7 @@ Y = [[2*i]*7 for i in range(7)]
 #      [ 8.,  8.,  8.,  8.,  8.,  8.,  8.],
 #      [10., 10., 10., 10., 10., 10., 10.],
 #      [12., 12., 12., 12., 12., 12., 12.]]
+#      [...]
 
 # This section of code plots and shows only the data points
 # plt.plot(X, Y, marker='o', color='k', linestyle='none')
@@ -68,9 +67,12 @@ z1 = np.linspace(0.5, 2, 7)
 z2 = np.linspace(0.5, 3.5, 7)
 z3 = z1
 z_array = [z1, z2, z3]
-Z = [z_array[DS_OPTION]] * 7
+Z = [z_array[DS_OPTION]] * 15
 
 fig, ax = plt.subplots()
+ax.set_xlim(0,18)
 CS = ax.contour(X, Y, Z)
+
+# ax.clabel(CS, CS.levels, inline=True, fmt=(lambda v: f'{v} V'), fontsize=9)
 
 plt.savefig("graph.pdf", format='pdf', bbox_inches='tight')
