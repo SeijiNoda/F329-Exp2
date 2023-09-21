@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib as mpl
 
 datasets = []
-DS_OPTION = 0 # select witch table provided to use
+DS_OPTION = 1 # select witch table provided to use
 
 # prints formatted matrix
 def print_m(matrix):
@@ -17,7 +17,7 @@ with open('data.txt', 'r') as f:
     
     matrix = []
     while line:
-        # removes headers
+        # removes headers and moves on to the next table/matrix
         try:
             x = int(line[0])
         except:
@@ -49,19 +49,27 @@ with open('data.txt', 'r') as f:
 
 X = datasets[DS_OPTION]
 
-Y = [[ 0.,  0.,  0.,  0.,  0.,  0.,  0.],
-     [ 2.,  2.,  2.,  2.,  2.,  2.,  2.,],
-     [ 4.,  4.,  4.,  4.,  4.,  4.,  4.],
-     [ 6.,  6.,  6.,  6.,  6.,  6.,  6.],
-     [ 8.,  8.,  8.,  8.,  8.,  8.,  8.],
-     [10., 10., 10., 10., 10., 10., 10.],
-     [12., 12., 12., 12., 12., 12., 12.]]
+Y = [[2*i]*7 for i in range(7)]
+# This line initializes the following matrix for range(7)
+# Y = [[ 0.,  0.,  0.,  0.,  0.,  0.,  0.],
+#      [ 2.,  2.,  2.,  2.,  2.,  2.,  2.,],
+#      [ 4.,  4.,  4.,  4.,  4.,  4.,  4.],
+#      [ 6.,  6.,  6.,  6.,  6.,  6.,  6.],
+#      [ 8.,  8.,  8.,  8.,  8.,  8.,  8.],
+#      [10., 10., 10., 10., 10., 10., 10.],
+#      [12., 12., 12., 12., 12., 12., 12.]]
 
+# This section of code plots and shows only the data points
 # plt.plot(X, Y, marker='o', color='k', linestyle='none')
 # plt.show()
+# exit()
 
-z = np.linspace(0.5, 2, 7)
-Z = [z] * 7
+z1 = np.linspace(0.5, 2, 7)
+z2 = np.linspace(0.5, 3.5, 7)
+z3 = z1
+z_array = [z1, z2, z3]
+Z = [z_array[DS_OPTION]] * 7
+
 fig, ax = plt.subplots()
 CS = ax.contour(X, Y, Z)
 
