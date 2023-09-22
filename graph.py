@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib as mpl
 
 datasets = []
-DS_OPTION = 1 # select witch table provided to use
+DS_OPTION = 2 # select witch table provided to use
 
 # prints formatted matrix
 print_m = lambda matrix: [print(line) for line in matrix]
@@ -63,16 +63,24 @@ Y = [[2*i]*7 for i in range(15)]
 # plt.show()
 # exit()
 
+# def set_levels(z): 
+#     z.append(z.pop() - 0.001)
+#     return z
+
 z1 = np.linspace(0.5, 2, 7)
 z2 = np.linspace(0.5, 3.5, 7)
 z3 = z1
 z_array = [z1, z2, z3]
 Z = [z_array[DS_OPTION]] * 15
+set_levels = lambda z: z + [z.pop() - 0.001]
+z_levels = set_levels(z_array[DS_OPTION].tolist())
 
 fig, ax = plt.subplots()
-ax.set_xlim(0,18)
-CS = ax.contour(X, Y, Z)
+CS = ax.contour(X, Y, Z, levels=z_levels)
+plt.plot(X, Y, marker='.', color='k', linestyle='none')
+ax.set(xlim=(0, 19), ylim=(0, 28))
 
 # ax.clabel(CS, CS.levels, inline=True, fmt=(lambda v: f'{v} V'), fontsize=9)
 
+# plt.show()
 plt.savefig("graph.pdf", format='pdf', bbox_inches='tight')
